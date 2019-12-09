@@ -1,0 +1,126 @@
+<!-- Editable table -->
+<div class="card mt-4">
+    <h3 class="card-header font-weight-bold text-uppercase py-4"> {{client.nom }} {{client.prenom }}</h3>
+    <div class="card-body">
+      <div id="table" class="table-editable">
+        <span class="table-add float-right mb-3 mr-2">
+          <button type="button" mdbBtn color="primary" mdbWavesEffect (click)="frame.show()">
+            <i class="fa fa-plus"></i> ajouter un nouvelle analyse
+          </button>
+        </span>
+        <table class="table table-bordered table-responsive-md table-striped text-center">
+          <tr>
+            <th class="text-center"> # </th>
+            <th class="text-center">Nom</th>
+            <th class="text-center">Date</th>
+            <th class="text-center">Prix</th>
+            <th class="text-center">Resultat</th>
+            <th class="text-center">status</th>
+          </tr>
+          <tr *ngFor="let analyse of analyses;let i = index">
+            <td>{{i}}</td>
+            <td >{{analyse.nom}}</td>
+            <td>{{analyse.date | date: 'dd/MM/yyyy'}}</td>
+            <td >{{analyse.prix}}</td>
+            <td >{{analyse.resultat}}</td>
+            <td >{{analyse.status}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- Editable table -->
+<!--Modal-->
+
+<div mdbModal #frame="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Ajouter un nouveau client </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body mx-3">
+        <form [formGroup]="form" enctype="multipart/form-data" (ngSubmit)="addAnalyse()">
+          <div class="md-form mb-5">
+            <input type="text" id="identifiant" formControlName="identifiant" class="form-control" name="identifiant" mdbInput mdbValidate>
+            <label for="identifiant">identifiant</label>
+            <mdb-error *ngIf="form.value.identifiant.invalid && (form.value.identifiant.dirty || form.value.identifiant.touched)">
+              Input invalid
+            </mdb-error>
+            <mdb-success *ngIf="form.value.identifiant.valid && (form.value.identifiant.dirty || form.value.identifiant.touched)">Input
+              valid
+            </mdb-success>
+          </div>
+
+          <div class="md-form mb-5">
+            <input type="text" id="nom" formControlName="nom" class="form-control" name="nom" mdbInput mdbValidate>
+            <label for="nom">votre nom</label>
+            <mdb-error *ngIf="form.value.nom.invalid && (form.value.nom.dirty || form.value.nom.touched)">
+              Input invalid
+            </mdb-error>
+            <mdb-success *ngIf="form.value.nom.valid && (form.value.nom.dirty || form.value.nom.touched)">Input
+              valid
+            </mdb-success>
+          </div>
+
+          <div class="md-form mb-4">
+            <input type="date" id="date" formControlName="date" class="form-control" name="date" mdbInput
+              mdbValidate>
+            <label for="date">date</label>
+            <mdb-error *ngIf="form.value.date.invalid && (form.value.date.dirty || form.value.date.touched)">
+              Input invalid
+            </mdb-error>
+            <mdb-success *ngIf="form.value.date.valid && (form.value.date.dirty || form.value.date.touched)">
+              Input valid
+            </mdb-success>
+          </div>
+
+          <div class="md-form mb-4">
+            <input type="number" id="prix" formControlName="prix" class="form-control" name="prix" mdbInput
+              mdbValidate>
+            <label for="prix">prix</label>
+            <mdb-error *ngIf="form.value.prix.invalid && (form.value.prix.dirty || form.value.prix.touched)">
+              Input invalid
+            </mdb-error>
+            <mdb-success *ngIf="form.value.prix.valid && (form.value.prix.dirty || form.value.prix.touched)">
+              Input valid
+            </mdb-success>
+          </div>
+
+          <div class="md-form mb-4">
+              <input type="text" id="resultat" formControlName="resultat" class="form-control" name="resultat" mdbInput
+                mdbValidate>
+              <label for="resultat">resultat</label>
+              <mdb-error *ngIf="form.value.resultat.invalid && (form.value.resultat.dirty || form.value.resultat.touched)">
+                Input invalid
+              </mdb-error>
+              <mdb-success *ngIf="form.value.resultat.valid && (form.value.resultat.dirty || form.value.resultat.touched)">
+                Input valid
+              </mdb-success>
+            </div>
+
+            <div class="md-form mb-4">
+                <input type="number" id="status" formControlName="status" class="form-control" name="status" mdbInput
+                  mdbValidate>
+                <label for="status">status</label>
+                <mdb-error *ngIf="form.value.status.invalid && (form.value.status.dirty || form.value.status.touched)">
+                  Input invalid
+                </mdb-error>
+                <mdb-success *ngIf="form.value.status.valid && (form.value.status.dirty || form.value.status.touched)">
+                  Input valid
+                </mdb-success>
+              </div>
+
+          <div class="modal-footer d-flex justify-content-center">
+        <button mdbBtn color="primary" class="waves-light" mdbWavesEffect [disabled]=form.invalid type="submit">ajouter </button>
+      </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
